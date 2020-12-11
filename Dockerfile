@@ -11,6 +11,7 @@ ENV QSYS_ROOTDIR="${QUARTUS_ROOTDIR}/sopc_builder/bin"
 ENV QUARTUS_ROOTDIR_OVERRIDE=${QUARTUS_ROOTDIR}
 ENV CPLUS_INCLUDE_PATH=/usr/include/c++/4.4.7:/usr/include/c++/4.4.7/x86_64-linux-gnu
 ENV PATH=/opt/Intel/intelFPGA_lite/$ALTERA_VER/quartus/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/qsys/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/quartus/sopc_builder/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/modelsim_ase/linux:/opt/Intel/intelFPGA_lite/$ALTERA_VER/hls/bin:$PATH
+ENV PERL5LIB=/opt/intelFPGA_lite/19.1/quartus/linux64/perl/lib/5.28.1
 ARG URIS=smb://${IP}/Share/Quartus${ALTERA_VER}/
 ARG QUARTUS=QuartusLiteSetup-19.1.0.670-linux.run
 ARG MAX10=max10-19.1.0.670.qdz
@@ -62,11 +63,11 @@ RUN mkdir /quartus-installer && \
   /quartus-installer/${QUARTUS} --mode unattended --unattendedmodeui none --installdir ${INTELFPGA_TOOLDIR} --accept_eula 1 && \
   /quartus-installer/${MODELSIM} --mode unattended --unattendedmodeui none --installdir ${INTELFPGA_TOOLDIR} --accept_eula 1 && \
   /quartus-installer/${HLS} --mode unattended --unattendedmodeui none --installdir ${INTELFPGA_TOOLDIR} --accept_eula 1 && \
-  sudo rm -rf /quartus-installer/ && \
-     sudo ln -s ${MODELSIM_DIR}/linux ${MODELSIM_DIR}/linux_rh60 && \
-     sudo mkdir ${MODELSIM_DIR}/Unused && \
-     sudo mv ${MODELSIM_DIR}/gcc-4.* ${MODELSIM_DIR}/Unused
-
+  rm -rf /quartus-installer/ && \
+  ln --backup=simple --suffix=.orig -sft /opt/Intel/intelFPGA_lite/19.1/quartus/linux64 /usr/lib/x86_64-linux-gnu/libstdc++.so.6 \
+  ln -s ${MODELSIM_DIR}/linux ${MODELSIM_DIR}/linux_rh60 && \
+  mkdir ${MODELSIM_DIR}/Unused && \
+  mv ${MODELSIM_DIR}/gcc-4.* ${MODELSIM_DIR}/Unused
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
