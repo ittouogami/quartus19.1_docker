@@ -3,15 +3,15 @@ LABEL maintainer "ittou <VYG07066@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 ARG ALTERA_VER="19.1"
 ARG IP
-ENV INTELFPGA_TOOLDIR="/opt/Intel/intelFPGA_lite/${ALTERA_VER}"
-ENV MODELSIM_DIR="${INTELFPGA_TOOLDIR}/modelsim_ase"
-ENV QUARTUS_ROOTDIR="${INTELFPGA_TOOLDIR}/quartus"
-ENV HLS_ROOTDIR="${INTELFPGA_TOOLDIR}/hls"
-ENV QSYS_ROOTDIR="${QUARTUS_ROOTDIR}/sopc_builder/bin"
+ENV INTELFPGA_TOOLDIR=/opt/Intel/intelFPGA_lite/${ALTERA_VER}
+ENV MODELSIM_DIR=${INTELFPGA_TOOLDIR}/modelsim_ase
+ENV QUARTUS_ROOTDIR=${INTELFPGA_TOOLDIR}/quartus
+ENV HLS_ROOTDIR=${INTELFPGA_TOOLDIR}/hls
+ENV QSYS_ROOTDIR=${QUARTUS_ROOTDIR}/sopc_builder/bin
 ENV QUARTUS_ROOTDIR_OVERRIDE=${QUARTUS_ROOTDIR}
 ENV CPLUS_INCLUDE_PATH=/usr/include/c++/4.4.7:/usr/include/c++/4.4.7/x86_64-linux-gnu
 ENV PATH=/opt/Intel/intelFPGA_lite/$ALTERA_VER/quartus/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/qsys/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/quartus/sopc_builder/bin:/opt/Intel/intelFPGA_lite/$ALTERA_VER/modelsim_ase/linux:/opt/Intel/intelFPGA_lite/$ALTERA_VER/hls/bin:$PATH
-ENV PERL5LIB=/opt/intelFPGA_lite/19.1/quartus/linux64/perl/lib/5.28.1
+ENV PERL5LIB=${INTELFPGA_TOOLDIR}/quartus/linux64/perl/lib/5.28.1
 ARG URIS=smb://${IP}/Share/Quartus${ALTERA_VER}/
 ARG QUARTUS=QuartusLiteSetup-19.1.0.670-linux.run
 ARG MAX10=max10-19.1.0.670.qdz
