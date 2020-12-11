@@ -14,6 +14,7 @@ ENV PATH=/opt/Intel/intelFPGA_lite/$ALTERA_VER/quartus/bin:/opt/Intel/intelFPGA_
 ARG URIS=smb://${IP}/Share/Quartus${ALTERA_VER}/
 ARG QUARTUS=QuartusLiteSetup-19.1.0.670-linux.run
 ARG MAX10=max10-19.1.0.670.qdz
+ARG CYCLONE10LP=cyclone10lp-19.1.0.670.qdz
 ARG MODELSIM=ModelSimSetup-19.1.0.670-linux.run
 ARG HLS=HLSProSetup-19.1.0.670-linux.run
 RUN mkdir /quartus-installer && \
@@ -51,6 +52,7 @@ RUN mkdir /quartus-installer && \
   apt-get autoremove && \
   smbget -a ${URIS}${QUARTUS} -o /quartus-installer/${QUARTUS} && \
   smbget -a ${URIS}${MAX10} -o /quartus-installer/${MAX10} && \
+  smbget -a ${URIS}${CYCLONE10LP} -o /quartus-installer/${CYCLONE10LP} && \
   smbget -a ${URIS}${MODELSIM} -o /quartus-installer/${MODELSIM} && \
   smbget -a ${URIS}${HLS} -o /quartus-installer/${HLS} && \
   chmod 755 /quartus-installer/${QUARTUS} && \
